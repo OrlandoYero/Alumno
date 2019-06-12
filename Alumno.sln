@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp1", "WebApp1\WebApp1.csproj", "{55D8D4A0-02B0-4E7F-B5CF-4780F0C4EC41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alumno.Presentation", "WebApp1\Alumno.Presentation.csproj", "{55D8D4A0-02B0-4E7F-B5CF-4780F0C4EC41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alumno.BusinessLogic", "Alumno.BusinessLogic\Alumno.BusinessLogic.csproj", "{1010A44A-B283-4263-8386-BFFBF6F1CE90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{55D8D4A0-02B0-4E7F-B5CF-4780F0C4EC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55D8D4A0-02B0-4E7F-B5CF-4780F0C4EC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55D8D4A0-02B0-4E7F-B5CF-4780F0C4EC41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1010A44A-B283-4263-8386-BFFBF6F1CE90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1010A44A-B283-4263-8386-BFFBF6F1CE90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1010A44A-B283-4263-8386-BFFBF6F1CE90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1010A44A-B283-4263-8386-BFFBF6F1CE90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
