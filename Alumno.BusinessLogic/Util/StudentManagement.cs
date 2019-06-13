@@ -101,54 +101,8 @@ namespace Alumno.BusinessLogic.Util
                 Group = (string)st[5],
                 Calification = (float)st[6]
             };
-            student.Key = GenerateStudentKey(student);
+            student.Key = KeyGenerate.GenerateStudentKey(student);
             return student;
-        }
-
-        /// <summary>
-        /// Generate student key
-        /// </summary>
-        /// <param name="student">Student obj</param>
-        /// <returns>key</returns>
-        private string GenerateStudentKey(Student student)
-        {
-            return GetTwoLetters(student.Name.Trim()) + GetTwoLetters(student.MotherLastName.Trim()) + GetStudentAge(student);
-        }
-
-        /// <summary>
-        /// Get last two characters
-        /// </summary>
-        /// <param name="value">string value</param>
-        /// <returns>string</returns>
-        private string GetTwoLetters(string value)
-        {
-            var result = "";
-            if (value.Length < 2)
-            {
-                result += "-";
-                if (value.Length == 0)
-                {
-                    result += "-";
-                }
-                else
-                {
-                    result += value;
-                }
-            }
-            else {
-                result = value.Substring(value.Length - 2);
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// Get age
-        /// </summary>
-        /// <param name="student"></param>
-        /// <returns></returns>
-        private int GetStudentAge(Student student)
-        {
-            return 12;
         }
     }
 }

@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Implementation\ReaderXls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\KeyGenerate.cs" />
     <Compile Include="Util\StudentManagement.cs" />
   </ItemGroup>
   <ItemGroup>
