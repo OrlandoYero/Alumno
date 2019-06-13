@@ -49,9 +49,8 @@ namespace Alumno.BusinessLogic.Implementation
                             
                             while (reader.Read())
                             {
-                                if (pos >= posInit && pos <= posEnd)
+                                List<object> list = new List<object>()
                                 {
-                                    management.AddStudent(
                                     reader.GetString(0),
                                     reader.GetString(1),
                                     reader.GetString(2),
@@ -59,13 +58,23 @@ namespace Alumno.BusinessLogic.Implementation
                                     int.Parse(reader[4].ToString()),
                                     reader.GetString(5),
                                     float.Parse(reader[6].ToString())
+                                };
+                                var student = management.CreateStudent(list);
+
+                                if (pos >= posInit && pos <= posEnd)
+                                {
+                                    management.AddStudent(
+                                        student
                                     );
                                 }
-                                else if (pos>= posInit){
-                                    break;
-                                }
-                                pos++;                                
+
+                                pos++;
+
+                                management.BestStudent = student;
+                                management.WorstStudent = student;
+                                management.StudentAverage += student.Calification;
                             }
+                            management.StudentAverage /= pos;
                         }
 
                     } while (reader.NextResult());

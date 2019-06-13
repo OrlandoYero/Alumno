@@ -8,6 +8,7 @@ namespace Alumno.Domain
 {
     public class Student
     {
+        public string Key { get; set; }
         public string Name { get; set; }
         public string MotherLastName { get; set; }
         public string FatherLastName { get; set; }
