@@ -16,13 +16,16 @@ namespace Alumno.Test.BusinessLogicTest
 
         [TestMethod]
         public void LoadDataXls() {
-            ReaderXls.ReadFile(@"Data\Calificaciones.xlsx", null, null);
+            var result = ReaderXls.ReadFile(@"Data\Calificaciones.xlsx", "Sheet1", 1, 6);
+            result.Students.ForEach(item => Console.WriteLine(item.ToString()));
+            result.Headers.ForEach(item => Console.WriteLine(item));
         }
 
         [TestMethod]
         public void GetHeadersXls()
         {
-            ReaderXls.GetHeaders(@"Data\Calificaciones.xlsx");
+            var result = ReaderXls.GetSheetNames(@"Data\Calificaciones.xlsx");
+            result.ForEach(item => Console.WriteLine(item));
         }
     }
 }
