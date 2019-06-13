@@ -24,5 +24,25 @@ namespace Alumno.Test.BusinessLogicTest
             });
             Console.WriteLine(age);
         }
+
+        [TestMethod]
+        public void GetTwoLettersTest() {
+            Console.WriteLine(KeyGenerate.GetTwoLetters(""));
+            Console.WriteLine(KeyGenerate.GetTwoLetters("a"));
+            Console.WriteLine(KeyGenerate.GetTwoLetters("abc"));
+            Console.WriteLine(KeyGenerate.GetTwoLetters("Angel", true));
+            Console.WriteLine(KeyGenerate.GetTwoLetters("Robles"));
+        }
+
+        [TestMethod]
+        public void GenerateStudentKeyTest() {
+            var student = new Domain.Student()
+            {
+                Name = "Angel",
+                MotherLastName = "Robles",
+                Birthdate = DateTime.Parse("20/05/1997")
+            };
+            Console.WriteLine(KeyGenerate.GenerateStudentKey(student));
+        }
     }
 }

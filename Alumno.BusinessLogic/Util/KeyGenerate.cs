@@ -17,7 +17,12 @@ namespace Alumno.BusinessLogic.Util
         /// <returns>key</returns>
         public static string GenerateStudentKey(Student student)
         {
-            return GetTwoLetters(student.Name.Trim()) + GetTwoLetters(student.MotherLastName.Trim()) + GetStudentAge(student);
+            var firstPair = GetTwoLetters(student.Name, true);
+            var secondPair = GetTwoLetters(student.MotherLastName);
+
+            return GetCharacterInAlpha(firstPair[0]) + GetCharacterInAlpha(firstPair[1]) 
+                + GetCharacterInAlpha(secondPair[0]) + GetCharacterInAlpha(secondPair[1]) 
+                + GetStudentAge(student);
         }
 
         /// <summary>
@@ -25,24 +30,30 @@ namespace Alumno.BusinessLogic.Util
         /// </summary>
         /// <param name="value">string value</param>
         /// <returns>string</returns>
-        public static string GetTwoLetters(string value)
+        public static string GetTwoLetters(string value, bool begin = false)
         {
+            value = value.Trim();
             var result = "";
             if (value.Length < 2)
             {
-                result += "-";
                 if (value.Length == 0)
                 {
-                    result += "-";
+                    result += "--";
                 }
                 else
                 {
-                    result += value;
+                    result += value + "-";
                 }
             }
             else
             {
-                result = value.Substring(value.Length - 2);
+                if (begin)
+                {
+                    result = value.Substring(0, 2);
+                }
+                else {
+                    result = value.Substring(value.Length - 2);
+                }
             }
             return result;
         }
@@ -58,7 +69,7 @@ namespace Alumno.BusinessLogic.Util
             return (new DateTime(1, 1, 1) + span).Year - 1;
         }
 
-        public static char GetCharacterInAlpha(char c)
+        public static string GetCharacterInAlpha(char c)
         {
             int position = 0;
             if (char.IsLetter(c))
@@ -78,10 +89,10 @@ namespace Alumno.BusinessLogic.Util
                 }
             }
             else {
-                return '-';
+                return "-";
             }
 
-            return position < 0 ? alphabet[alphabet.Count() + position] : alphabet[position];
+            return position < 0 ? alphabet[alphabet.Count() + position].ToString() : alphabet[position].ToString();
         }
     }
 }
