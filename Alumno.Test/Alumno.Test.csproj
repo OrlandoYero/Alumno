@@ -49,11 +49,25 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogicTest\ReaderXlsTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Calificaciones.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alumno.BusinessLogic\Alumno.BusinessLogic.csproj">
+      <Project>{1010a44a-b283-4263-8386-bffbf6f1ce90}</Project>
+      <Name>Alumno.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alumno.Domain\Alumno.Domain.csproj">
+      <Project>{DF94BA92-7C6C-4873-A1BB-13EA67319518}</Project>
+      <Name>Alumno.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
