@@ -1,0 +1,93 @@
+﻿@page
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    td {
+        vertical-align: middle !important;
+    }
+</style>
+<div class="row" style="padding-top: 50px">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel">
+            <div class="panel-heading">
+                <h2>Listado de estudiantes</h2>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">A. materno</th>
+                            <th scope="col">A. paterno</th>
+                            <th scope="col">F. nacimiento</th>
+                            <th scope="col">Grado</th>
+                            <th scope="col">Grupo</th>
+                            <th scope="col">Calificación</th>
+                            <th scope="col">Clave</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Juan Jose</td>
+                            <td>Lopez</td>
+                            <td>Perez</td>
+                            <td>20/05/1993</td>
+                            <td>1</td>
+                            <td>A</td>
+                            <td>10</td>
+                            <td style="vertical-align: middle; font-weight:bold" id="1">XKBP22</td>
+                            <td>
+                                <div class="input-group" style="width: 100px">
+                                    <input id="number_rotation" type="number" class="form-control" />
+                                    <span class="input-group-btn">
+                                        <button onclick="rotate_string(1)" class="btn btn-success" type="button"><span class="glyphicon glyphicon-repeat" style="font-size:12px"></span></button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function rotate_string(id) {
+            var str = $('#' + id).html();
+            var r = $('#number_rotation').val();
+            if (is_valid && is_valid(r)) {
+                r = r % str.length;
+                if (r < 0) {
+                    // numero negativo
+                    r *= -1;
+                    $('#' + id).html(reverse_string(str.substring(str.length - r, str.length)) + str.substring(0, str.length - r));
+                } else if (r > 0) {
+                    // numero positivo
+                    $('#' + id).html(str.substring(r, str.length) + str.substring(0, r));
+                }
+            }
+        }
+
+        function is_valid(value) {
+            if (value !== undefined && value !== "") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // from https://medium.com/sonyamoisset/reverse-a-string-in-javascript-a18027b8e91c
+        function reverse_string(str) {
+            var splitString = str.split("");
+            var reverseArray = splitString.reverse();
+            var joinArray = reverseArray.join("");
+            return joinArray;
+        }
+
+    </script>
+}
