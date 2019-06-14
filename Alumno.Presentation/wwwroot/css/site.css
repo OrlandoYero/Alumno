@@ -1,4 +1,4 @@
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification 
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
     padding-top: 50px;
@@ -28,25 +28,10 @@ body {
     margin: 15px;
 }
 
-.Fondo {
-    /*background: rgba(11, 57, 84, 1);*/
-    background: rgba(34, 191, 191, 1);
-    background-repeat: no-repeat;
-    background-size: 120%;
-    background-position: -210px 340px;
-}
-
-.input-search {
-    background: rgba(255, 255, 255, 1);
-    border-radius: 51px;
-    -moz-border-radius: 51px;
-    -webkit-border-radius: 51px;
-    height: 55px;
-    font-size: 25px;
-}
-
-.Button_Load {
-    border-radius: 51px;
-    -moz-border-radius: 51px;
-    -webkit-border-radius: 51px;
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
 }

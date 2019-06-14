@@ -6,12 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Alumno.BusinessLogic\Alumno.BusinessLogic.csproj" />
-    <ProjectReference Include="..\Alumno.Domain\Alumno.Domain.csproj" />
   </ItemGroup>
 
 </Project>
