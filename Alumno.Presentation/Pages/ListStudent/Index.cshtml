@@ -1,6 +1,6 @@
 ﻿@page
 @using Alumno.Domain.Model
-@model List<Student>
+@model List<StudentData>
 @{
     ViewData["Title"] = "Index";
 }
@@ -17,45 +17,51 @@
                 <h2>Listado de estudiantes</h2>
             </div>
             <div class="panel-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombres</th>
-                            <th scope="col">A. materno</th>
-                            <th scope="col">A. paterno</th>
-                            <th scope="col">F. nacimiento</th>
-                            <th scope="col">Grado</th>
-                            <th scope="col">Grupo</th>
-                            <th scope="col">Calificación</th>
-                            <th scope="col">Clave</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            @foreach (var student in Model)
-                            {
+                @if (Model != null && Model.Count != 0)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombres</th>
+                                <th scope="col">A. materno</th>
+                                <th scope="col">A. paterno</th>
+                                <th scope="col">F. nacimiento</th>
+                                <th scope="col">Grado</th>
+                                <th scope="col">Grupo</th>
+                                <th scope="col">Calificación</th>
+                                <th scope="col">Clave</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @foreach (var student in Model)
+                                {
 
-                                <td>@student.Name</td>
-                                <td>@student.MotherLastName</td>
-                                <td>@student.FatherLastName</td>
-                                <td>@student.Birthdate.ToString("dd//mm//yyyy")</td>
-                                <td>@student.Grade</td>
-                                <td>@student.Group</td>
-                                <td>@student.Calification</td>
-                                <td style="vertical-align: middle; font-weight:bold" id="@student.Id">XKBP22</td>
-                                <td>
-                                    <div class="input-group" style="width: 100px">
-                                        <input id="number_rotation" type="number" class="form-control" value="0" />
-                                        <span class="input-group-btn">
-                                            <button onclick="rotate_string(@student.Id)" class="btn btn-success" type="button"><span class="glyphicon glyphicon-repeat" style="font-size:12px"></span></button>
-                                        </span>
-                                    </div>
-                                </td>
-                            }
-                        </tr>
-                    </tbody>
-                </table>
+                                    <td>@student.Name</td>
+                                    <td>@student.MotherLastName</td>
+                                    <td>@student.FatherLastName</td>
+                                    <td>@student.Birthdate.ToString("dd//mm//yyyy")</td>
+                                    <td>@student.Grade</td>
+                                    <td>@student.Group</td>
+                                    <td>@student.Calification</td>
+                                    <td style="vertical-align: middle; font-weight:bold" id="@student.Id">XKBP22</td>
+                                    <td>
+                                        <div class="input-group" style="width: 100px">
+                                            <input id="number_rotation" type="number" class="form-control" value="0" />
+                                            <span class="input-group-btn">
+                                                <button onclick="rotate_string(@student.Id)" class="btn btn-success" type="button"><span class="glyphicon glyphicon-repeat" style="font-size:12px"></span></button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                else {
+                    <span>Nada para mostrar</span>
+                }
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@ namespace Alumno.Test.BusinessLogicTest
 
         [TestMethod]
         public void GetStudentAgeTest() {
-           var age = KeyGenerate.GetStudentAge(new Student
+           var age = KeyGenerate.GetStudentAge(new StudentData
             {
                 Birthdate = DateTime.Parse("30/04/1991")
             });
@@ -37,7 +37,7 @@ namespace Alumno.Test.BusinessLogicTest
 
         [TestMethod]
         public void GenerateStudentKeyTest() {
-            var student = new Student()
+            var student = new StudentData()
             {
                 Name = "Angel",
                 MotherLastName = "Robles",

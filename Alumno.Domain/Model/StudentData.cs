@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Alumno.Domain.Model
 {
-    public class Student
+    public class StudentData
     {
         public int Id { get; set; }
         public string Key { get; set; }
@@ -17,6 +17,7 @@ namespace Alumno.Domain.Model
         public int Grade { get; set; }
         public string Group { get; set; }
         public float Calification { get; set; }
+        public StudentData() { }
         public override string ToString()
         {
             return Name + " " + MotherLastName + " " + FatherLastName + " " + Birthdate + " " + Grade + " " + Group + " " + Calification;

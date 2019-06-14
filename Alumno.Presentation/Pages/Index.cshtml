@@ -15,7 +15,20 @@
 </div>
 <div class="row" style="margin-top: 40px; margin-bottom:100px">
     <div class="col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3 text-center">
-        <button class="btn btn-success Button_Load" onclick="loadFile()"><i class="glyphicon glyphicon-upload" style="font-size:30px; margin-left:20px; margin-right:20px"></i></button>
+        <button class="btn btn-success Button_Load" onclick="load_file_from_disk()"><i class="glyphicon glyphicon-upload" style="font-size:30px; margin-left:20px; margin-right:20px"></i></button>
+    </div>
+</div>
+<div class="modal fade" id="modal_sheet" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModal2Label">Introduzca la hoja donde trabajará</h4>
+            </div>
+            <div class="modal-body">
+                <select id="select_sheet"></select>
+            </div>
+        </div>
     </div>
 </div>
 @section scripts{
@@ -25,23 +38,39 @@
             var path = localStorage.getItem("path");
             if (path !== undefined || path.length > 0) {
                 $('#load').val(path);
-            }            
+            }
         }
-        function loadFile() {
+        function load_file_from_disk() {
             var path = $('#load').val();
-            if (path_is_valid(path)) {
+            var sheets = get_sheet(path);
+            if (sheets !== null) {
                 localStorage.setItem('path', path);
+                for (var i in sheets) {
+                    $('#select_sheet').append($('<option>', {
+                        value: i,
+                        text: sheets[i]
+                    }));
+                }
+                $('#modal_sheet').modal('show');
             } else {
-                alert("Introdúzca un path válido");
-            }            
+                alert("Introdúzca una dirección válido");
+            }
         }
 
-        function path_is_valid(path) {
-            if (path === undefined || path.length === 0) {
-                return false;
-            }
-            return true;
+        function get_sheet(path) {
+            var sheets = null;
+            $.ajax({
+                type: 'POST',
+                url: 'Home/LoadSheetInformation',
+                data: {
+                    'path': "texto"
+                },
+                success: function (sheet_list) {
+                    sheets = sheet_list;
+                },
+                async: false
+            });
+            return sheets;
         }
     </script>
-    
 }

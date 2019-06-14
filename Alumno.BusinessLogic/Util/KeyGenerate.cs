@@ -15,7 +15,7 @@ namespace Alumno.BusinessLogic.Util
         /// </summary>
         /// <param name="student">Student obj</param>
         /// <returns>key</returns>
-        public static string GenerateStudentKey(Student student)
+        public static string GenerateStudentKey(StudentData student)
         {
             var firstPair = GetTwoLetters(student.Name, true);
             var secondPair = GetTwoLetters(student.MotherLastName);
@@ -63,7 +63,7 @@ namespace Alumno.BusinessLogic.Util
         /// </summary>
         /// <param name="student"></param>
         /// <returns></returns>
-        public static int GetStudentAge(Student student)
+        public static int GetStudentAge(StudentData student)
         {
             var span = DateTime.Now - student.Birthdate;
             return (new DateTime(1, 1, 1) + span).Year - 1;

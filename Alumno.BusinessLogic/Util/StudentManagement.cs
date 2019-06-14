@@ -13,16 +13,16 @@ namespace Alumno.BusinessLogic.Util
         /// <summary>
         /// Pageable list of student
         /// </summary>
-        public List<Student> Students { get; set; }
+        public List<StudentData> Students { get; set; }
         /// <summary>
         /// Headers for xls
         /// </summary>
         public List<string> Headers { get; set; }
-        private Student _bestStudent;
+        private StudentData _bestStudent;
         /// <summary>
         /// Best student from file
         /// </summary>
-        public Student BestStudent
+        public StudentData BestStudent
         {
             get { return _bestStudent; }
             set
@@ -37,11 +37,11 @@ namespace Alumno.BusinessLogic.Util
                 }
             }
         }
-        private Student _worstStudent;
+        private StudentData _worstStudent;
         /// <summary>
         /// Worst student from file
         /// </summary>
-        public Student WorstStudent
+        public StudentData WorstStudent
         {
             get { return _worstStudent; }
             set
@@ -60,12 +60,12 @@ namespace Alumno.BusinessLogic.Util
         public float StudentAverage { get; set; }
         public StudentManagement()
         {
-            Students = new List<Student>();
+            Students = new List<StudentData>();
             Headers = new List<string>();
-            _bestStudent = new Student();
-            _worstStudent = new Student();
+            _bestStudent = new StudentData();
+            _worstStudent = new StudentData();
         }
-        public bool AddStudent(Student student)
+        public bool AddStudent(StudentData student)
         {
             try
             {
@@ -91,9 +91,9 @@ namespace Alumno.BusinessLogic.Util
             return true;
         }
 
-        public Student CreateStudent(params object[] st)
+        public StudentData CreateStudent(params object[] st)
         {
-            var student = new Student
+            var student = new StudentData
             {
                 Name = (string)st[0],
                 MotherLastName = (string)st[1],

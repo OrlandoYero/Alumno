@@ -50,7 +50,7 @@ namespace Alumno.BusinessLogic.Implementation
         }
 
         /// <summary>
-        /// Optener manager para source y la hoja especificada
+        /// Obtener manager para source y la hoja especificada
         /// </summary>
         /// <param name="source">origen del fichero</param>
         /// <param name="sheet">nombre hoja xls</param>
@@ -88,6 +88,10 @@ namespace Alumno.BusinessLogic.Implementation
                 sb.Append(hash[i].ToString("x2"));
             }
             return sb.ToString();
+        }
+
+        public static List<string> GetSheetList(string path) {
+            return ReaderXls.GetSheetNames(path);
         }
     }
 }
