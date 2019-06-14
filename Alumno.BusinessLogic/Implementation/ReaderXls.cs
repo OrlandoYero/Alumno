@@ -21,7 +21,7 @@ namespace Alumno.BusinessLogic.Implementation
         /// <param name="page">Page to show</param>
         /// <param name="size">Page size</param>
         /// <returns></returns>
-        public static StudentManagement ReadFile(string fileName, string sheet, int page, int size)
+        public static StudentManagement ReadFile(string fileName, string sheet, int page, int size, bool reload = false)
         {
             StudentManagement management = new StudentManagement();
             using (var stream = File.Open(fileName, FileMode.Open, FileAccess.Read))
@@ -34,23 +34,25 @@ namespace Alumno.BusinessLogic.Implementation
                         {
                             // get header
                             management.AddHeaders(
-                                reader.GetString(0), 
-                                reader.GetString(1), 
-                                reader.GetString(2), 
-                                reader.GetString(3), 
-                                reader.GetString(4), 
-                                reader.GetString(5), 
+                                reader.GetString(0),
+                                reader.GetString(1),
+                                reader.GetString(2),
+                                reader.GetString(3),
+                                reader.GetString(4),
+                                reader.GetString(5),
                                 reader.GetString(6)
                                 );
 
-                            int pos = 1;
+                            management.Sheet = sheet;
+
+                            int pos = 0;
                             int posInit = (page - 1) * size + 1;
                             int posEnd = page * size;
-                            
+
                             while (reader.Read())
                             {
-                                List<object> list = new List<object>()
-                                {
+                                ++pos;
+                                var student = management.CreateStudent(
                                     reader.GetString(0),
                                     reader.GetString(1),
                                     reader.GetString(2),
@@ -58,23 +60,25 @@ namespace Alumno.BusinessLogic.Implementation
                                     int.Parse(reader[4].ToString()),
                                     reader.GetString(5),
                                     float.Parse(reader[6].ToString())
-                                };
-                                var student = management.CreateStudent(list);
-
+                                    );
+                                student.Id = pos;
                                 if (pos >= posInit && pos <= posEnd)
                                 {
                                     management.AddStudent(
                                         student
                                     );
+                                } else if (!reload && pos > posInit)
+                                {
+                                    break;
                                 }
 
-                                pos++;
-
-                                management.BestStudent = student;
-                                management.WorstStudent = student;
-                                management.StudentAverage += student.Calification;
+                                if (reload)
+                                {
+                                    management.BestStudent = student;
+                                    management.WorstStudent = student;
+                                    management.StudentAverage += student.Calification/ (reader.RowCount - 1);
+                                }
                             }
-                            management.StudentAverage /= pos;
                         }
 
                     } while (reader.NextResult());

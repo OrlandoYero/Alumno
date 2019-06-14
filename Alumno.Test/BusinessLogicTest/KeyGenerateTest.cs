@@ -1,5 +1,6 @@
 ﻿using System;
 using Alumno.BusinessLogic.Util;
+using Alumno.Domain.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Alumno.Test.BusinessLogicTest
@@ -18,7 +19,7 @@ namespace Alumno.Test.BusinessLogicTest
 
         [TestMethod]
         public void GetStudentAgeTest() {
-           var age = KeyGenerate.GetStudentAge(new Domain.Student
+           var age = KeyGenerate.GetStudentAge(new Student
             {
                 Birthdate = DateTime.Parse("30/04/1991")
             });
@@ -36,7 +37,7 @@ namespace Alumno.Test.BusinessLogicTest
 
         [TestMethod]
         public void GenerateStudentKeyTest() {
-            var student = new Domain.Student()
+            var student = new Student()
             {
                 Name = "Angel",
                 MotherLastName = "Robles",

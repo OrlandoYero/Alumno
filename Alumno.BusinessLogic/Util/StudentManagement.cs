@@ -1,4 +1,4 @@
-﻿using Alumno.Domain;
+﻿using Alumno.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ namespace Alumno.BusinessLogic.Util
 {
     public class StudentManagement
     {
+        public string Sheet { get; set; }
         /// <summary>
         /// Pageable list of student
         /// </summary>
@@ -17,40 +18,41 @@ namespace Alumno.BusinessLogic.Util
         /// Headers for xls
         /// </summary>
         public List<string> Headers { get; set; }
+        private Student _bestStudent;
         /// <summary>
         /// Best student from file
         /// </summary>
         public Student BestStudent
         {
-            get { return BestStudent; }
+            get { return _bestStudent; }
             set
             {
-                if (BestStudent.Name == null)
+                if (_bestStudent.Name == null)
                 {
-                    BestStudent = value;
+                    _bestStudent = value;
                 }
-                else if (BestStudent.Calification > value.Calification)
+                else if (_bestStudent.Calification < value.Calification)
                 {
-                    BestStudent = value;
+                    _bestStudent = value;
                 }
-
             }
         }
+        private Student _worstStudent;
         /// <summary>
         /// Worst student from file
         /// </summary>
         public Student WorstStudent
         {
-            get { return WorstStudent; }
+            get { return _worstStudent; }
             set
             {
-                if (WorstStudent.Name == null)
+                if (_worstStudent.Name == null)
                 {
-                    WorstStudent = value;
+                    _worstStudent = value;
                 }
-                else if (WorstStudent.Calification < value.Calification)
+                else if (_worstStudent.Calification > value.Calification)
                 {
-                    WorstStudent = value;
+                    _worstStudent = value;
                 }
             }
         }
@@ -60,8 +62,8 @@ namespace Alumno.BusinessLogic.Util
         {
             Students = new List<Student>();
             Headers = new List<string>();
-            BestStudent = new Student();
-            WorstStudent = new Student();
+            _bestStudent = new Student();
+            _worstStudent = new Student();
         }
         public bool AddStudent(Student student)
         {

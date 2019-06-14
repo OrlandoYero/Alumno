@@ -8,7 +8,7 @@ namespace Alumno.Presentation.Controllers
 {
     public class ListStudentController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int size = 10)
         {
             return View();
         }

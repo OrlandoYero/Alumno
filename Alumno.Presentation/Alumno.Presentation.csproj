@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Alumno.BusinessLogic\Alumno.BusinessLogic.csproj" />
+    <ProjectReference Include="..\Alumno.Domain\Alumno.Domain.csproj" />
   </ItemGroup>
 
 </Project>

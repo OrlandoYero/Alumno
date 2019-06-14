@@ -16,9 +16,8 @@ namespace Alumno.Test.BusinessLogicTest
 
         [TestMethod]
         public void LoadDataXls() {
-            var result = ReaderXls.ReadFile(@"Data\Calificaciones.xlsx", "Sheet1", 1, 6);
+            var result = ReaderXls.ReadFile(@"Data\Calificaciones.xlsx", "Sheet1", 1, 6, true);
             result.Students.ForEach(item => Console.WriteLine(item.ToString()));
-            result.Headers.ForEach(item => Console.WriteLine(item));
         }
 
         [TestMethod]
