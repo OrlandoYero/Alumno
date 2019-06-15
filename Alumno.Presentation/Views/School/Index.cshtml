@@ -22,16 +22,16 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="row" style="padding-bottom:5px">
-                    @using (Html.BeginForm((string)ViewBag.Action, (string)ViewBag.Controller, FormMethod.Get, new { @class = "form-horizontal" }))
+                    @using (Html.BeginForm((string)ViewBag.Action, (string)ViewBag.Controller, FormMethod.Get, new { @class = "form-horizontal", id = "submit_form" }))
                     {
-                        <div class="col-md-3" id="PageSizeController">
-                            Mostrar
-                            <select class="form-control" name="selectedSizePage" id="selectedSizePage" style="font-size:small">
-                                <option id="10">5</option>
-                                <option id="15">10</option>
-                            </select>
-                            entradas
-                        </div>
+                    <div class="col-md-3" id="PageSizeController">
+                        Mostrar
+                        <select class="form-control" name="selectedSizePage" id="selectedSizePage" style="font-size:small">
+                            <option id="10">5</option>
+                            <option id="15">10</option>
+                        </select>
+                        entradas
+                    </div>
                     }
                 </div>
                 @if (Model != null && Model.Count != 0)
@@ -134,7 +134,7 @@
             var selectedOption = @Html.Raw("'" + ViewBag.SelectedSizePage + "'")
 
             $('#selectedSizePage').change ( function () {
-                $('#submit_filter').trigger('click');
+                $('#submit_form').submit();
             });
             if (selectedOption === null && selectedOption === undefined) {
                 $("#selectedSizePage").val(5);

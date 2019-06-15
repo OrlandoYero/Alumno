@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Http
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,9 +31,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="School" asp-action="Index">Listado</a></li>
-                    <li><a asp-area="" asp-controller="School" asp-action="Statistic">Estadística</a></li>
+                    <li action="index" controller="home"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    @if(Context.Session.GetString("Sheet") != null) {
+                        <li action="index" controller="school"><a asp-area="" asp-controller="School" asp-action="Index">Listado</a></li>
+                        <li action="statistic" controller="school"><a asp-area="" asp-controller="School" asp-action="Statistic">Estadística</a></li>
+                    }
                 </ul>
             </div>
         </div>
@@ -52,8 +55,8 @@
         </div>
         @RenderBody()
         @*<footer style="position: absolute;bottom: 0;width: 50%;">
-            <p>&copy; <span style="font-weight:bold">Conduent 2019</span> - StudentApp</p>
-        </footer>*@
+                <p>&copy; <span style="font-weight:bold">Conduent 2019</span> - StudentApp</p>
+            </footer>*@
     </div>
 
     <environment include="Development">
@@ -88,6 +91,26 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }
         }(document, 'script', 'weatherwidget-io-js');
+        active_nav();
+        function active_nav() {
+            var controller = "@ViewContext.RouteData.Values["controller"].ToString().ToLower()";
+            var action = "@ViewContext.RouteData.Values["action"].ToString().ToLower()";
+
+            var element = $('li[action="' + action + '"][controller="' + controller + '"]');
+
+            if (!element.length)
+                element = $('li[controller="' + controller + '"]');
+
+            while (element.length) {
+                if (element[0].localName == 'li')
+                    element.addClass('active');
+
+                if (element.attr('x-navigation'))
+                    break;
+
+                element = element.parent();
+            }
+        }
     </script>
     @RenderSection("Scripts", required: false)
 </body>
