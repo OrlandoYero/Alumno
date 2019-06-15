@@ -20,8 +20,8 @@ namespace Alumno.Presentation.Controllers
             {
                 ViewBag.SelectedSizePage = selectedSizePage;
                 ViewBag.Page = page;
-                
-                var management = Manager.GetPageData(path, sheet, page ?? 1,selectedSizePage ?? 5);
+
+                var management = Manager.GetPageData(path, sheet, page ?? 1, selectedSizePage ?? 5);
                 if (management != null)
                 {
                     ViewBag.TotalStudent = management.StudentCount;
@@ -30,6 +30,24 @@ namespace Alumno.Presentation.Controllers
                 }
             }
             return Redirect("../Home/Index");
+        }
+
+        public IActionResult Statistic()
+        {
+            var sheet = HttpContext.Session.GetString("Sheet");
+            var path = HttpContext.Session.GetString("Path");
+            if (sheet != null)
+            {
+                var management = Manager.GetSourceData(path, sheet);
+                if (management != null)
+                {
+                    ViewBag.BestStudent = management.BestStudent;
+                    ViewBag.WorstStudent = management.WorstStudent;
+                    ViewBag.StudentAverage = management.StudentAverage;
+                }
+                return View();
+            }
+            return Redirect("~/Home/Index");
         }
     }
 }

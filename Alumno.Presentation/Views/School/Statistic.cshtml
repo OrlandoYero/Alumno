@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Statistic";
+}
+<style>
+    .image-div-best {
+        border-top: 1px solid green;
+        border-bottom: 1px solid green;
+        font-size: 1.5em;
+    }
+
+    .image-div-Worst {
+        border-top: 1px solid red;
+        border-bottom: 1px solid red;
+        font-size: 1.5em;
+    }
+</style>
+<div class="row" style="margin-top:20px">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body" style="margin-left:0;margin-right:0;">
+                <div class="row col-md-4">
+                    <div class="col-md-12">
+                        <span>Best Student</span>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="image-div-best">
+                            <img src="~/images/best.png" width="50" height="50"
+                                 alt="block" style="vertical-align: middle;">
+                            <span>@ViewBag.BestStudent.Name @ViewBag.BestStudent.FatherLastName @ViewBag.BestStudent.MotherLastName</span>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row col-md-4 col-md-offset-1">
+                    <div class="col-md-12">
+                        <span>Worst Student</span>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="image-div-Worst">
+                            <img src="~/images/worst.png" width="50" height="50"
+                                 alt="block" style="vertical-align: middle;">
+                            <span>@ViewBag.WorstStudent.Name @ViewBag.WorstStudent.FatherLastName @ViewBag.WorstStudent.MotherLastName</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-2 col-md-offset-1">
+                    <div class="col-md-12">
+                        <span>Student Average</span>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="image-div-best">
+                            <img src="~/images/education.jpg" width="50" height="50"
+                                 alt="block" style="vertical-align: middle;">
+                                <span>@ViewBag.StudentAverage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div>
+    poner gráfico
+</div>
+</div>
+

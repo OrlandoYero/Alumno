@@ -88,7 +88,7 @@ namespace Alumno.BusinessLogic.Implementation
         /// <param name="page">posicion de la pagina</param>
         /// <param name="size">tamaño de la pagina</param>
         /// <returns>StudentManagement</returns>
-        public static StudentManagement GetSourceData(string md5Path, string sheet, int page = 1, int size = 5)
+        public static StudentManagement GetSourceData(string md5Path, string sheet)
         {
             SourceDataXls.TryGetValue(md5Path, out List<StudentManagement> value);
             StudentManagement management = null;
