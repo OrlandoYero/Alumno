@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
+<body class="Fondo">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -40,17 +40,26 @@
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
+    <div class="container-fluid body-content">
+        <div class="row">
+            <a class="weatherwidget-io"
+               href="https://forecast7.com/es/29d07n110d96/hermosillo/"
+               data-label_1="HERMOSILLO"
+               data-label_2="CLIMA"
+               data-theme="original">
+                HERMOSILLO CLIMA
+            </a>
+        </div>
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2019 - Alumno.Presentation</p>
+        <footer style="position: absolute;bottom: 0;width: 50%;">
+            <p>&copy; <span style="font-weight:bold">Conduent 2019</span> - StudentApp</p>
         </footer>
     </div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -66,9 +75,20 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
+    <script>
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = 'https://weatherwidget.io/js/widget.min.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, 'script', 'weatherwidget-io-js');
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
