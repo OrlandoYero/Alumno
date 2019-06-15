@@ -21,7 +21,7 @@
             <div class="panel-body" style="margin-left:0;margin-right:0;">
                 <div class="row col-md-4">
                     <div class="col-md-12">
-                        <span>Best Student</span>
+                        <span>Mayor calificación</span>
                     </div>
                     <div class="col-md-12">
                         <div class="image-div-best">
@@ -32,9 +32,21 @@
                         
                     </div>
                 </div>
+                <div class="row col-md-2 col-md-offset-1">
+                    <div class="col-md-12">
+                        <span>Promedio</span>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="image-div-best">
+                            <img src="~/images/education.jpg" width="50" height="50"
+                                 alt="block" style="vertical-align: middle;">
+                            <span>@ViewBag.StudentAverage</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="row col-md-4 col-md-offset-1">
                     <div class="col-md-12">
-                        <span>Worst Student</span>
+                        <span>Menor calificación</span>
                     </div>
                     <div class="col-md-12">
                         <div class="image-div-Worst">
@@ -44,18 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row col-md-2 col-md-offset-1">
-                    <div class="col-md-12">
-                        <span>Student Average</span>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="image-div-best">
-                            <img src="~/images/education.jpg" width="50" height="50"
-                                 alt="block" style="vertical-align: middle;">
-                                <span>@ViewBag.StudentAverage</span>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
