@@ -1,5 +1,7 @@
 ﻿@using Alumno.Domain.Model
-@model List<StudentData>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model IPagedList<StudentData>
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,15 +11,35 @@
         vertical-align: middle !important;
     }
 </style>
-<div class="row" style="padding-top: 50px">
+<div class="row" style="padding-top: 10px">
     <div class="col-md-10 col-md-offset-1">
         <div class="panel">
-            <div class="panel-heading">
-                <h2>Listado de estudiantes</h2>
-            </div>
             <div class="panel-body" style="height: 300px;overflow-y: scroll;">
                 @if (Model != null && Model.Count != 0)
                 {
+                    <div class="row" style="padding-bottom:5px">
+                        @using (Html.BeginForm((string)ViewBag.Action, (string)ViewBag.Controller, FormMethod.Get, new { @class = "form-horizontal" }))
+                        {
+                            <div class="col-md-3" id="PageSizeController">
+                                Mostrar
+                                <select class="form-control" name="selectedSizePage" id="selectedSizePage" style="font-size:small">
+                                    <option id="10">5</option>
+                                    <option id="15">10</option>
+                                </select>
+                                entradas
+                            </div>
+                            <div class="col-md-3 pull-right" style="padding-right:0">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-search"></span>
+                                    </div>
+                                    <div class="input-group-btn">
+                                        <input type="submit" id="submit_filter" value="Buscar" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -60,6 +82,13 @@
 
                         </tbody>
                     </table>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12" style="padding: 0px">
+                            <div class="col-md-6" style="margin-top:15px">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, selectedSizePage = ViewBag.SelectedSizePage }))
+                        </div>
+                    </div>
                 }
                 else
                 {
@@ -103,6 +132,18 @@
             var joinArray = reverseArray.join("");
             return joinArray;
         }
+    </script>
 
+    <script>
+        var selectedOption = @Html.Raw("'" + ViewBag.SelectedSizePage + "'")
+        $('#selectedSizePage option').removeProp("selected");
+        $('#selectedSizePage').change ( function () {
+            $('#submit_filter').trigger('click');
+        });
+        if (selectedOption === null && selectedOption === undefined) {
+            $('#selectedSizePage #10').prop("selected","selected");
+        } else {
+            $('#selectedSizePage #' + selectedOption).prop("selected", "selected");
+        }
     </script>
 }

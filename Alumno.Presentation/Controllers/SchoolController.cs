@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alumno.BusinessLogic.Implementation;
+using Alumno.Domain.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace Alumno.Presentation.Controllers
 {
@@ -16,10 +18,14 @@ namespace Alumno.Presentation.Controllers
             var path = HttpContext.Session.GetString("Path");
             if (sheet != null)
             {
+                ViewBag.SelectedSizePage = 5;
+                ViewBag.Page = 1;
+                ViewBag.TotalStudent = 11;
                 var management = Manager.GetPageData(path, sheet);
                 if (management != null)
                 {
-                    return View(management.Students);
+                    var usersAsIPagedList = new StaticPagedList<StudentData>(management.Students, ViewBag.Page, ViewBag.SelectedSizePage, ViewBag.TotalStudent);
+                    return View(usersAsIPagedList);
                 }
             }
             return View();
