@@ -71,6 +71,9 @@ namespace Alumno.BusinessLogic.Implementation
                     if (item.Sheet == sheet)
                     {
                         management = item;
+                        // actualizar pagina activa de estudiantes 
+                        var newList = ReaderXls.ReadFile(management.FileName, sheet, page, size);
+                        management.Students = newList.Students; 
                     }
                 });
             }

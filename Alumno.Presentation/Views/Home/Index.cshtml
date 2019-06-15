@@ -5,7 +5,7 @@
     <div class="col-md-8 col-md-offset-2">
         <input id="load"
                type="text"
-               placeholder="Introduce dirección de fichero xls"
+               placeholder="Introduce dirección de fichero xls(xlsx) (ej: c:\archive.xls)"
                class="form-control input-search"
                aria-label="Xls">
     </div>
@@ -47,17 +47,22 @@
         }
         function load_file_from_disk() {
             var path = $('#load').val();
-            var sheets = get_sheet(path);
-            if (sheets !== null) {
-                localStorage.setItem('path', path);
-                for (var i in sheets) {
-                    $('#select_sheet').append($('<option>', {
-                        value: i,
-                        text: sheets[i]
-                    }));
+            if (path !== null && path !== undefined && path !== "") {
+                var sheets = get_sheet(path);
+                if (sheets !== null && sheets !== undefined && sheets !== "") {
+                    localStorage.setItem('path', path);
+                    for (var i in sheets) {
+                        $('#select_sheet').append($('<option>', {
+                            value: i,
+                            text: sheets[i]
+                        }));
+                    }
+                    $('#modal_sheet').modal('show');
+                } else {
+                    alert("La dirección introducida no es válida");
                 }
-                $('#modal_sheet').modal('show');
-            } else {
+            }
+            else {
                 alert("Introdúzca una dirección válido");
             }
         }
@@ -82,7 +87,7 @@
         }
 
         function accept_sheet() {
-            var path = localStorage.getItem('path'); 
+            var path = localStorage.getItem('path');
             var sheet = $('#select_sheet').find(":selected").text();
             $('#modal_sheet').modal('hide');
             $.ajax({

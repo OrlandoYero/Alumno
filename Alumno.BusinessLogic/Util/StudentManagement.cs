@@ -9,6 +9,8 @@ namespace Alumno.BusinessLogic.Util
 {
     public class StudentManagement
     {
+        public string FileName { get; set; }
+        public int StudentCount { get; set; }
         public string Sheet { get; set; }
         /// <summary>
         /// Pageable list of student

@@ -81,6 +81,8 @@ namespace Alumno.BusinessLogic.Implementation
                                         management.BestStudent = student;
                                         management.WorstStudent = student;
                                         management.StudentAverage += student.Calification / (reader.RowCount - 1);
+                                        management.StudentCount = reader.RowCount - 1;
+                                        management.FileName = fileName;
                                     }
                                 }
                             }

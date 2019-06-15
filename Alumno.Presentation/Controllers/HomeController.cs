@@ -24,7 +24,7 @@ namespace Alumno.Presentation.Controllers
 
         [HttpPost]
         public bool LoadData(string path, string sheet) {
-            if (Manager.AddSourceData(path, sheet, 1, 10, true) != null) {
+            if (Manager.AddSourceData(path, sheet, 1, 5, true) != null) {
                 HttpContext.Session.SetString("Path", Manager.CalculateMD5Hash(path));
                 HttpContext.Session.SetString("Sheet", sheet);
                 return true;

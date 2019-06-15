@@ -12,23 +12,24 @@ namespace Alumno.Presentation.Controllers
 {
     public class SchoolController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(int? selectedSizePage = 5, int? page = 1)
         {
             var sheet = HttpContext.Session.GetString("Sheet");
             var path = HttpContext.Session.GetString("Path");
             if (sheet != null)
             {
-                ViewBag.SelectedSizePage = 5;
-                ViewBag.Page = 1;
-                ViewBag.TotalStudent = 11;
-                var management = Manager.GetPageData(path, sheet);
+                ViewBag.SelectedSizePage = selectedSizePage;
+                ViewBag.Page = page;
+                
+                var management = Manager.GetPageData(path, sheet, page ?? 1,selectedSizePage ?? 5);
                 if (management != null)
                 {
+                    ViewBag.TotalStudent = management.StudentCount;
                     var usersAsIPagedList = new StaticPagedList<StudentData>(management.Students, ViewBag.Page, ViewBag.SelectedSizePage, ViewBag.TotalStudent);
                     return View(usersAsIPagedList);
                 }
             }
-            return View();
+            return Redirect("../Home/Index");
         }
     }
 }

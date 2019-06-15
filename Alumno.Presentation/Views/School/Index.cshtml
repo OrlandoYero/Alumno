@@ -10,37 +10,33 @@
     td {
         vertical-align: middle !important;
     }
+
+    #PageSizeController select {
+        width: 70px;
+        display: inline;
+        margin: 0px 5px;
+    }
 </style>
 <div class="row" style="padding-top: 10px">
     <div class="col-md-10 col-md-offset-1">
         <div class="panel">
-            <div class="panel-body" style="height: 300px;overflow-y: scroll;">
+            <div class="panel-body">
+                <div class="row" style="padding-bottom:5px">
+                    @using (Html.BeginForm((string)ViewBag.Action, (string)ViewBag.Controller, FormMethod.Get, new { @class = "form-horizontal" }))
+                    {
+                        <div class="col-md-3" id="PageSizeController">
+                            Mostrar
+                            <select class="form-control" name="selectedSizePage" id="selectedSizePage" style="font-size:small">
+                                <option id="10">5</option>
+                                <option id="15">10</option>
+                            </select>
+                            entradas
+                        </div>
+                    }
+                </div>
                 @if (Model != null && Model.Count != 0)
                 {
-                    <div class="row" style="padding-bottom:5px">
-                        @using (Html.BeginForm((string)ViewBag.Action, (string)ViewBag.Controller, FormMethod.Get, new { @class = "form-horizontal" }))
-                        {
-                            <div class="col-md-3" id="PageSizeController">
-                                Mostrar
-                                <select class="form-control" name="selectedSizePage" id="selectedSizePage" style="font-size:small">
-                                    <option id="10">5</option>
-                                    <option id="15">10</option>
-                                </select>
-                                entradas
-                            </div>
-                            <div class="col-md-3 pull-right" style="padding-right:0">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <span class="fa fa-search"></span>
-                                    </div>
-                                    <div class="input-group-btn">
-                                        <input type="submit" id="submit_filter" value="Buscar" class="btn btn-primary" />
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    <table class="table">
+                    <table class="table" style="height: 300px;overflow-y: scroll;">
                         <thead>
                             <tr>
                                 <th scope="col">Ids</th>
@@ -64,14 +60,14 @@
                                     <td>@student.Name</td>
                                     <td>@student.MotherLastName</td>
                                     <td>@student.FatherLastName</td>
-                                    <td>@student.Birthdate.ToString("dd/mm/yyyy")</td>
+                                    <td>@student.Birthdate.ToString("dd/MM/yyyy")</td>
                                     <td>@student.Grade</td>
                                     <td>@student.Group</td>
                                     <td>@student.Calification</td>
-                                    <td style="vertical-align: middle; font-weight:bold" id="@student.Id">@student.Key</td>
+                                    <td style="vertical-align: middle; font-weight:bold" id="key_@student.Id">@student.Key</td>
                                     <td>
                                         <div class="input-group" style="width: 100px">
-                                            <input id="number_rotation" type="number" class="form-control" value="0" />
+                                            <input id="number_rotation_@student.Id" type="number" class="form-control" value="0" />
                                             <span class="input-group-btn">
                                                 <button onclick="rotate_string(@student.Id)" class="btn btn-success" type="button"><span class="glyphicon glyphicon-repeat" style="font-size:12px"></span></button>
                                             </span>
@@ -85,7 +81,7 @@
                     <hr />
                     <div class="row">
                         <div class="col-md-12" style="padding: 0px">
-                            <div class="col-md-6" style="margin-top:15px">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
+                            <div class="col-md-6" style="margin-top:15px">Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</div>
                             @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, selectedSizePage = ViewBag.SelectedSizePage }))
                         </div>
                     </div>
@@ -101,18 +97,19 @@
 
 @section scripts{
     <script type="text/javascript">
+        active_selected();
         function rotate_string(id) {
-            var str = $('#' + id).html();
-            var r = $('#number_rotation').val();
+            var str = $('#key_' + id).html();
+            var r = $('#number_rotation_' + id).val();
             if (is_valid(str) && is_valid(r)) {
                 r = r % str.length;
                 if (r < 0) {
                     // numero negativo
                     r *= -1;
-                    $('#' + id).html(reverse_string(str.substring(str.length - r, str.length)) + str.substring(0, str.length - r));
+                    $('#key_' + id).html(reverse_string(str.substring(str.length - r, str.length)) + str.substring(0, str.length - r));
                 } else if (r > 0) {
                     // numero positivo
-                    $('#' + id).html(str.substring(r, str.length) + str.substring(0, r));
+                    $('#key_' + id).html(str.substring(r, str.length) + str.substring(0, r));
                 }
             }
         }
@@ -132,18 +129,18 @@
             var joinArray = reverseArray.join("");
             return joinArray;
         }
-    </script>
 
-    <script>
-        var selectedOption = @Html.Raw("'" + ViewBag.SelectedSizePage + "'")
-        $('#selectedSizePage option').removeProp("selected");
-        $('#selectedSizePage').change ( function () {
-            $('#submit_filter').trigger('click');
-        });
-        if (selectedOption === null && selectedOption === undefined) {
-            $('#selectedSizePage #10').prop("selected","selected");
-        } else {
-            $('#selectedSizePage #' + selectedOption).prop("selected", "selected");
+        function active_selected() {
+            var selectedOption = @Html.Raw("'" + ViewBag.SelectedSizePage + "'")
+
+            $('#selectedSizePage').change ( function () {
+                $('#submit_filter').trigger('click');
+            });
+            if (selectedOption === null && selectedOption === undefined) {
+                $("#selectedSizePage").val(5);
+            } else {
+                $("#selectedSizePage").val(selectedOption);
+            }
         }
     </script>
 }
