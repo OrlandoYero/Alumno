@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Alumno.Presentation.Models;
+using Alumno.BusinessLogic.Implementation;
 
 namespace Alumno.Presentation.Controllers
 {
@@ -13,6 +15,23 @@ namespace Alumno.Presentation.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public List<string> LoadSheetInformation(string path) {
+            return Manager.GetSheetList(path);
+        }
+
+        [HttpPost]
+        public bool LoadData(string path, string sheet) {
+            if (Manager.AddSourceData(path, sheet, 1, 10, true) != null) {
+                HttpContext.Session.SetString("Path", Manager.CalculateMD5Hash(path));
+                HttpContext.Session.SetString("Sheet", sheet);
+                return true;
+            }
+            HttpContext.Session.Remove("Sheet");
+            HttpContext.Session.Remove("Path");
+            return false;
         }
 
         public IActionResult About()

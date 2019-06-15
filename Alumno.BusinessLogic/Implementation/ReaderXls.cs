@@ -24,66 +24,76 @@ namespace Alumno.BusinessLogic.Implementation
         public static StudentManagement ReadFile(string fileName, string sheet, int page, int size, bool reload = false)
         {
             StudentManagement management = new StudentManagement();
-            using (var stream = File.Open(fileName, FileMode.Open, FileAccess.Read))
+            if (File.Exists(fileName))
             {
-                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                using (var stream = File.Open(fileName, FileMode.Open, FileAccess.Read))
                 {
-                    do
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
                     {
-                        if (reader.Name == sheet && reader.Read())
+                        do
                         {
-                            // get header
-                            management.AddHeaders(
-                                reader.GetString(0),
-                                reader.GetString(1),
-                                reader.GetString(2),
-                                reader.GetString(3),
-                                reader.GetString(4),
-                                reader.GetString(5),
-                                reader.GetString(6)
-                                );
-
-                            management.Sheet = sheet;
-
-                            int pos = 0;
-                            int posInit = (page - 1) * size + 1;
-                            int posEnd = page * size;
-
-                            while (reader.Read())
+                            if (reader.Name == sheet && reader.Read())
                             {
-                                ++pos;
-                                var student = management.CreateStudent(
+                                // get header
+                                management.AddHeaders(
                                     reader.GetString(0),
                                     reader.GetString(1),
                                     reader.GetString(2),
-                                    Convert.ToDateTime(reader[3].ToString()),
-                                    int.Parse(reader[4].ToString()),
+                                    reader.GetString(3),
+                                    reader.GetString(4),
                                     reader.GetString(5),
-                                    float.Parse(reader[6].ToString())
+                                    reader.GetString(6)
                                     );
-                                student.Id = pos;
-                                if (pos >= posInit && pos <= posEnd)
-                                {
-                                    management.AddStudent(
-                                        student
-                                    );
-                                } else if (!reload && pos > posInit)
-                                {
-                                    break;
-                                }
 
-                                if (reload)
+                                management.Sheet = sheet;
+
+                                int pos = 0;
+                                int posInit = (page - 1) * size + 1;
+                                int posEnd = page * size;
+
+                                while (reader.Read())
                                 {
-                                    management.BestStudent = student;
-                                    management.WorstStudent = student;
-                                    management.StudentAverage += student.Calification/ (reader.RowCount - 1);
+                                    ++pos;
+                                    var student = management.CreateStudent(
+                                        reader.GetString(0),
+                                        reader.GetString(1),
+                                        reader.GetString(2),
+                                        Convert.ToDateTime(reader[3].ToString()),
+                                        int.Parse(reader[4].ToString()),
+                                        reader.GetString(5),
+                                        float.Parse(reader[6].ToString())
+                                        );
+                                    student.Id = pos;
+                                    if (pos >= posInit && pos <= posEnd)
+                                    {
+                                        management.AddStudent(
+                                            student
+                                        );
+                                    }
+                                    else if (!reload && pos > posInit)
+                                    {
+                                        break;
+                                    }
+
+                                    if (reload)
+                                    {
+                                        management.BestStudent = student;
+                                        management.WorstStudent = student;
+                                        management.StudentAverage += student.Calification / (reader.RowCount - 1);
+                                    }
                                 }
                             }
-                        }
 
-                    } while (reader.NextResult());
+                        } while (reader.NextResult());
+                    }
                 }
             }
+            else
+            {
+                return null;
+            }
+
             return management;
         }
 
@@ -95,17 +105,26 @@ namespace Alumno.BusinessLogic.Implementation
         public static List<string> GetSheetNames(string fileName)
         {
             List<string> SheetNames = new List<string>();
-            using (var stream = File.Open(fileName, FileMode.Open, FileAccess.Read))
+            if (File.Exists(fileName))
             {
-                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                using (var stream = File.Open(fileName, FileMode.Open, FileAccess.Read))
                 {
-                    do
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
                     {
-                        SheetNames.Add(reader.Name);
+                        do
+                        {
+                            SheetNames.Add(reader.Name);
 
-                    } while (reader.NextResult());
+                        } while (reader.NextResult());
+                    }
                 }
             }
+            else
+            {
+                return null;
+            }
+
             return SheetNames;
         }
     }

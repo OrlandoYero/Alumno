@@ -15,12 +15,13 @@
             <div class="panel-heading">
                 <h2>Listado de estudiantes</h2>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="height: 300px;overflow-y: scroll;">
                 @if (Model != null && Model.Count != 0)
                 {
                     <table class="table">
                         <thead>
                             <tr>
+                                <th scope="col">Ids</th>
                                 <th scope="col">Nombres</th>
                                 <th scope="col">A. materno</th>
                                 <th scope="col">A. paterno</th>
@@ -33,18 +34,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                @foreach (var student in Model)
-                                {
 
+                            @foreach (var student in Model)
+                            {
+                                <tr>
+                                    <td>@student.Id</td>
                                     <td>@student.Name</td>
                                     <td>@student.MotherLastName</td>
                                     <td>@student.FatherLastName</td>
-                                    <td>@student.Birthdate.ToString("dd//mm//yyyy")</td>
+                                    <td>@student.Birthdate.ToString("dd/mm/yyyy")</td>
                                     <td>@student.Grade</td>
                                     <td>@student.Group</td>
                                     <td>@student.Calification</td>
-                                    <td style="vertical-align: middle; font-weight:bold" id="@student.Id">XKBP22</td>
+                                    <td style="vertical-align: middle; font-weight:bold" id="@student.Id">@student.Key</td>
                                     <td>
                                         <div class="input-group" style="width: 100px">
                                             <input id="number_rotation" type="number" class="form-control" value="0" />
@@ -53,8 +55,9 @@
                                             </span>
                                         </div>
                                     </td>
-                                }
-                            </tr>
+                                </tr>
+                            }
+
                         </tbody>
                     </table>
                 }

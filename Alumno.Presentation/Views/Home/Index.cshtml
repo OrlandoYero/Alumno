@@ -17,14 +17,21 @@
     </div>
 </div>
 <div class="modal fade" id="modal_sheet" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModal2Label">Introduzca la hoja donde trabajará</h4>
+                <h4 class="modal-title" id="myModal2Label">Seleccione la hoja</h4>
             </div>
             <div class="modal-body">
-                <select id="select_sheet"></select>
+                <div class="row">
+                    <div class="col-md-12">
+                        <select id="select_sheet" class="form-control" style="display: block;margin: 0 auto; max-width: 200px"></select>
+                    </div>
+                    <div class="col-md-12" style="margin-top:20px;text-align:center">
+                        <button class="btn btn-info" type="button" onclick="accept_sheet()">Seleccionar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -61,14 +68,39 @@
                 type: 'POST',
                 url: 'Home/LoadSheetInformation',
                 data: {
-                    'path': "texto"
+                    path
                 },
                 success: function (sheet_list) {
                     sheets = sheet_list;
+                    if (sheet_list === null) {
+                        alert("Fichero introducido no válido");
+                    }
                 },
                 async: false
             });
             return sheets;
+        }
+
+        function accept_sheet() {
+            var path = localStorage.getItem('path'); 
+            var sheet = $('#select_sheet').find(":selected").text();
+            $('#modal_sheet').modal('hide');
+            $.ajax({
+                type: 'POST',
+                url: 'Home/LoadData',
+                data: {
+                    path,
+                    sheet
+                },
+                success: function (result) {
+                    if (result === true) {
+                        window.location.href = 'School';
+                    } else {
+                        alert("Ha ocurrido un error leyendo el fichero");
+                    }
+                },
+                async: false
+            });
         }
     </script>
 }
