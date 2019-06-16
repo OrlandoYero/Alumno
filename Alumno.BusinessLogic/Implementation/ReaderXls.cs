@@ -78,11 +78,25 @@ namespace Alumno.BusinessLogic.Implementation
 
                                     if (reload)
                                     {
+                                        // statistics
                                         management.BestStudent = student;
                                         management.WorstStudent = student;
                                         management.StudentAverage += student.Calification / (reader.RowCount - 1);
                                         management.StudentCount = reader.RowCount - 1;
                                         management.FileName = fileName;
+                                        var floorValue = (int)Math.Floor(student.Calification);
+                                        if (student.Calification > 5)
+                                        {
+                                            if (!management.CounterByNote.ContainsKey(floorValue))
+                                                management.CounterByNote[floorValue] = 0;
+                                            management.CounterByNote[floorValue]++;
+                                        }
+                                        else
+                                        {
+                                            if (!management.CounterByNote.ContainsKey(5))
+                                                management.CounterByNote[5] = 0;
+                                            management.CounterByNote[5]++;
+                                        }
                                     }
                                 }
                             }

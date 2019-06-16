@@ -43,7 +43,15 @@ namespace Alumno.Presentation.Controllers
                 {
                     ViewBag.BestStudent = management.BestStudent;
                     ViewBag.WorstStudent = management.WorstStudent;
-                    ViewBag.StudentAverage = management.StudentAverage;
+                    ViewBag.StudentAverage = management.StudentAverage;                    
+                    string value = "[";
+                    management.CounterByNote.Values.ToList().ForEach(item =>
+                    {
+                        if (item != 5) {
+                            value += item + ",";
+                        }
+                    });
+                    ViewBag.CounterByNote = value + "10]";
                 }
                 return View();
             }

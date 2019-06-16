@@ -12,6 +12,7 @@ namespace Alumno.BusinessLogic.Util
         public string FileName { get; set; }
         public int StudentCount { get; set; }
         public string Sheet { get; set; }
+        public Dictionary<int, int> CounterByNote { get; set; }
         /// <summary>
         /// Pageable list of student
         /// </summary>
@@ -66,6 +67,10 @@ namespace Alumno.BusinessLogic.Util
             Headers = new List<string>();
             _bestStudent = new StudentData();
             _worstStudent = new StudentData();
+            CounterByNote = new Dictionary<int, int>
+            {
+                { 10, 0 },{ 9, 0 },{ 8, 0 },{ 7, 0 },{ 6, 0 },{ 5, 0 }
+            };
         }
         public bool AddStudent(StudentData student)
         {
