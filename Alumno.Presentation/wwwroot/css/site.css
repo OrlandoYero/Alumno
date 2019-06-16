@@ -12,10 +12,8 @@ body {
     padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+.nav > li {
+    cursor: pointer !important;
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
@@ -57,4 +55,32 @@ body {
     border-radius: 51px;
     -moz-border-radius: 51px;
     -webkit-border-radius: 51px;
+}
+
+.image-div-best {
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+    font-size: 1.5em;
+}
+
+.image-div-Worst {
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    font-size: 1.5em;
+}
+
+.canvas-table {
+    max-height: 350px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+#PageSizeController select {
+    width: 70px;
+    display: inline;
+    margin: 0px 5px;
 }

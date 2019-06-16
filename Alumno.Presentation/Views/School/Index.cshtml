@@ -6,17 +6,6 @@
     ViewData["Title"] = "Index";
 }
 
-<style>
-    td {
-        vertical-align: middle !important;
-    }
-
-    #PageSizeController select {
-        width: 70px;
-        display: inline;
-        margin: 0px 5px;
-    }
-</style>
 <div class="row" style="padding-top: 10px">
     <div class="col-md-10 col-md-offset-1">
         <div class="panel">
@@ -106,7 +95,7 @@
                 if (r < 0) {
                     // numero negativo
                     r *= -1;
-                    $('#key_' + id).html(reverse_string(str.substring(str.length - r, str.length)) + str.substring(0, str.length - r));
+                    $('#key_' + id).html(str.substring(str.length - r, str.length) + str.substring(0, str.length - r));
                 } else if (r > 0) {
                     // numero positivo
                     $('#key_' + id).html(str.substring(r, str.length) + str.substring(0, r));
@@ -120,14 +109,6 @@
             } else {
                 return false;
             }
-        }
-
-        // from https://medium.com/sonyamoisset/reverse-a-string-in-javascript-a18027b8e91c
-        function reverse_string(str) {
-            var splitString = str.split("");
-            var reverseArray = splitString.reverse();
-            var joinArray = reverseArray.join("");
-            return joinArray;
         }
 
         function active_selected() {
