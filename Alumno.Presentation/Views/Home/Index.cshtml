@@ -96,6 +96,7 @@
             var path = localStorage.getItem('path');
             var sheet = $('#select_sheet').find(":selected").text();
             $('#modal_sheet').modal('hide');
+            spinnerShow();
             $.ajax({
                 type: 'POST',
                 url: 'Home/LoadData',
@@ -112,6 +113,7 @@
                 },
                 async: false
             });
+            spinnerHide();
         }
     </script>
 }
