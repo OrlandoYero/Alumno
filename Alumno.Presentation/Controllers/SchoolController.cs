@@ -29,7 +29,7 @@ namespace Alumno.Presentation.Controllers
                     return View(usersAsIPagedList);
                 }
             }
-            return Redirect("../Home/Index");
+            return Redirect("../");
         }
 
         public IActionResult Statistic()
@@ -47,7 +47,7 @@ namespace Alumno.Presentation.Controllers
                 }
                 return View();
             }
-            return Redirect("~/Home/Index");
+            return Redirect("../");
         }
     }
 }
